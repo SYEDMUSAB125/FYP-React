@@ -34,14 +34,11 @@ const Plan = () => {
       {/* Right Side */}
       <div className='flex flex-col h-full justify-center'>
         <h3 className='text-5xl md:text-6xl font-bold'>Plan Your Next Harvest With Us</h3>
-        <p className='text-2xl py-6'>
+        <p className='text-2xl py-4'>
           Who are we ?
         </p>
-        <p className='pb-6'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum
-          voluptates nostrum dolorum reprehenderit error! Doloribus est illo
-          eius saepe? Molestias sapiente perspiciatis doloribus consectetur
-          nihil facilis aliquid eaque vel quisquam.
+        <p className='pb-6 '>
+        We are agricultural pioneers, dedicated to revolutionizing farming through sustainable practices and cutting-edge technology. At 'Plan Your Next Harvest With Us,' we offer more than just solutions; we provide partnerships built on trust, expertise, and a shared vision for the future of agriculture. With a deep understanding of farmers' challenges and a commitment to their success, we stand as your ally in navigating the complexities of modern farming. From harnessing the power of data to providing ongoing support, we're here to empower farmers worldwide to thrive in today's ever-evolving agricultural landscape.
         </p>
         <div>
           <button className='border-black mr-4 hover:shadow-xl'>

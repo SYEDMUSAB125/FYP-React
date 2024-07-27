@@ -5,19 +5,17 @@ import Plan from './components/Plan.jsx';
 import Rooms from './components/Rooms.jsx';
 import ImageSlider from './components/ImageSlider.jsx'
 import Footer from './components/Footer.jsx'
-
 function App() {
   return (
-    <div>
+    <div data-theme="light">
       <Navbar />
       <Hero />
       <Offers />
       <Plan />
       <Rooms />
       <ImageSlider />
-      <Footer />
+      <Footer /> 
     </div>
   );
 }
-
 export default App;
