@@ -6,10 +6,14 @@ import tempImg from './images/temp.png';
 import soilImg from './images/soil.png';
 import humidityImg from './images/Humidity.png';
 import valveImg from './images/valve.png';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function DataCard() {
   const [node, setNode] = useState([]);
   const [valveControl, setValveControl] = useState(false);
+  const [aiPrediction, setAiPrediction] = useState(null);
+  const [flag,setFlag] = useState(false);
 
   useEffect(() => {
     const nodeRef = ref(database, 'Node1');
@@ -27,6 +31,47 @@ function DataCard() {
         console.error(error);
       });
   }, []);
+  const notify = () => {
+    setInterval(() => {
+      setFlag(true);
+    } 
+    , 4000);
+    setTimeout(() => {
+      clearInterval();
+    }, 4001 )
+  
+    }
+  useEffect(()=>{
+    notify();
+  },[flag])
+  useEffect(() => {
+    const fetchAiPrediction = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/getValues');
+        const data = await response.json();
+        setAiPrediction(data[0]);
+        const message = data[0].Binary_Prediction === 0 
+          ? 'No need for water around three days'
+          : 'Valve should be on for 3 days';
+          console.log(message);
+        toast.info(message, {
+          autoClose: false,
+          onClose: () => {
+            setTimeout(() => fetchAiPrediction(), 30000);
+          }
+        });
+      } catch (error) {
+        console.error('Error fetching AI prediction:', error);
+      }
+    };
+
+    fetchAiPrediction();
+    const interval = setInterval(fetchAiPrediction, 30000);
+
+    return () => clearInterval(interval);
+
+  }, []);
+
 
   const handleToggle = async () => {
     const newValue = !valveControl;
@@ -43,6 +88,12 @@ function DataCard() {
   if (node.length === 0) {
     return <div>Loading...</div>;
   }
+ 
+
+
+
+
+
 
   return (
     <div className="columns-2 space-y-8 " style={{ boxSizing: 'border-box' }}>
@@ -100,9 +151,11 @@ function DataCard() {
           </div>
         </div>
       </div>
+     {
+       flag ? <ToastContainer /> : null
+     }
     </div>
   );
 }
 
 export default DataCard;
-
